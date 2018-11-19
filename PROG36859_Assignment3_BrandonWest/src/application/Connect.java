@@ -40,6 +40,7 @@ public class Connect
 				System.out.println( "Not conected to database." );
 		}catch ( SQLException error )
 		{
+			System.out.println( "SQL Error" );
 			error.printStackTrace();
 		}
 	}
@@ -66,7 +67,7 @@ public class Connect
 	/**
 	 * @param _conn the _conn to set
 	 */
-	protected void setConn(Connection newConnection ) 
+	protected void setConn( Connection newConnection ) 
 	{
 		this._conn = newConnection;
 	}
