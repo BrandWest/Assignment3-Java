@@ -11,15 +11,17 @@ public class Connect
 	protected String _user = null;
 	protected String _password = null;
 	
-	// default constructor
+	/**
+	 *  default constructor
+	 */
 	protected Connect()
 	{}
 	
 	/**
 	 * non default constrcutor for connect object
-	 * @param newDbURL
-	 * @param newUser
-	 * @param newPassword
+	 * @param newDbURL database url
+	 * @param newUser user name
+	 * @param newPassword user password
 	 */
 	protected Connect( String newDbURL, String newUser, String newPassword )
 	{
@@ -28,14 +30,19 @@ public class Connect
 		this.setPassword( newPassword );
 	}
 	
+	/**
+	 * connect to server method
+	 */
 	public void connect()
 	{
 		try
 		{
-			System.out.println( "conn = " + getConn() );
-			setConn( DriverManager.getConnection( getDbURL(), getUser(), getPassword() ) );
-			if ( getConn() != null )
-				System.out.println( "Connected to database." );
+			// set the connection with provided variables
+			setConnection( DriverManager.getConnection( getDbURL(), getUser(), getPassword() ) );
+			// if getConnection returns with not null, connected to database
+			if ( getConnection() != null )
+				System.out.println( "Connected to database. " + getConnection() );
+			// else not connected
 			else
 				System.out.println( "Not conected to database." );
 		}catch ( SQLException error )
@@ -43,8 +50,11 @@ public class Connect
 			System.out.println( "SQL Error" );
 			error.printStackTrace();
 		}
-	}
+	}//end of connect method
 	
+	/**
+	 * disonnect from server
+	 */
 	protected void disconnect ()
 	{
 		try 
@@ -57,23 +67,26 @@ public class Connect
 	}
 
 	/**
-	 * @return the _conn
+	 * returnt he connection info
+	 * @return the _conn holds the connection info
 	 */
-	protected Connection getConn() 
+	protected Connection getConnection() 
 	{
 		return _conn;
 	}
 
 	/**
-	 * @param _conn the _conn to set
+	 * set the connection info
+	 * @param _conn the connection info is set
 	 */
-	protected void setConn( Connection newConnection ) 
+	protected void setConnection( Connection newConnection ) 
 	{
 		this._conn = newConnection;
 	}
 
 	/**
-	 * @return the _dbURL
+	 * return the database url
+	 * @return the database url
 	 */
 	protected String getDbURL() 
 	{
@@ -81,7 +94,8 @@ public class Connect
 	}
 
 	/**
-	 * @param _dbURL the _dbURL to set
+	 * sets the database name
+	 * @param _dbURL gets the database url set
 	 */
 	protected void setDbURL(String newDbURL)
 	{
@@ -89,6 +103,7 @@ public class Connect
 	}
 
 	/**
+	 * return the username
 	 * @return the _user
 	 */
 	protected String getUser() 
@@ -97,6 +112,7 @@ public class Connect
 	}
 
 	/**
+	 * set the username from newUser
 	 * @param _user the _user to set
 	 */
 	protected void setUser(String newUser) 
@@ -105,7 +121,8 @@ public class Connect
 	}
 
 	/**
-	 * @return the _password
+	 * returns the password from the user
+	 * @return the _password 
 	 */
 	protected String getPassword() 
 	{
@@ -113,10 +130,11 @@ public class Connect
 	}
 
 	/**
-	 * @param _password the _password to set
+	 * sets the password
+	 * @param _password to user input password
 	 */
 	protected void setPassword(String newPassword) 
 	{
 		this._password = newPassword;
 	}
-}
+}// end of connect method
