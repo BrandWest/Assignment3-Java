@@ -80,12 +80,14 @@ public class Main
 				choice = -1;
 			}
 		}// end of while for connecting
-	
+		
+		// choice set to 0 to access the while loop
 		choice = 0;
 		while ( choice == 0 )
 		{
 			try
 			{
+				// propt user for input, to drop tables or not.
 				System.out.print( "Do you want to drop the tables? 1 = yes, 2 = no: " );
 				choice = input.nextInt();				
 			}catch ( InputMismatchException error ) 
@@ -99,10 +101,14 @@ public class Main
 				manipulation.dropTable( connect );
 				manipulation.createTable( connect );			
 			}
+			// tables being kept.
 			else if ( choice == 2 )
 				System.out.println( "Keeping tables." );
 			else
+			{
 				System.out.println( "Invalid, please try again." );
+				choice = 0;				
+			}
 				
 		}
 		// executor service that handles the threads
@@ -120,7 +126,7 @@ public class Main
 		executorService.shutdown();
 		//await time to terminate thread
 		executorService.awaitTermination( 1,  TimeUnit.MINUTES );
-		
+		// get all messages from the database
 		manipulation.getAllMessages( connect );
 		// close input
 		input.close();
