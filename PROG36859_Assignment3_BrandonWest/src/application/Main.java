@@ -21,7 +21,7 @@ public class Main
 		DataBaseManagement manipulation = new DataBaseManagement();
 		
 		//While loop to get input from user for credentials.
-		while ( choice == -1 && connect == null || choice == 0 )
+		while ( choice == -1 && connect == null )
 		{
 			try
 			{
@@ -72,16 +72,39 @@ public class Main
 			else if ( choice == 0 )
 			{
 				System.out.println( "Exiting... " );
-				break;
+				System.exit( 0 );
 			}
 			else 
+			{
 				System.out.println( "Invalid input, please try again.");
+				choice = -1;
+			}
 		}// end of while for connecting
 	
-		// drop tables for producer and consumer, create tables for producer and consumer
-		manipulation.dropTable( connect );
-		manipulation.createTable( connect );
-		
+		choice = 0;
+		while ( choice == 0 )
+		{
+			try
+			{
+				System.out.print( "Do you want to drop the tables? 1 = yes, 2 = no: " );
+				choice = input.nextInt();				
+			}catch ( InputMismatchException error ) 
+			{
+				System.out.println( "Bad input, only numbers." );
+				input.nextLine();
+			}
+			if ( choice == 1 )
+			{
+				// drop tables for producer and consumer, create tables for producer and consumer
+				manipulation.dropTable( connect );
+				manipulation.createTable( connect );			
+			}
+			else if ( choice == 2 )
+				System.out.println( "Keeping tables." );
+			else
+				System.out.println( "Invalid, please try again." );
+				
+		}
 		// executor service that handles the threads
 		ExecutorService executorService = Executors.newCachedThreadPool();
 		//synchronized buffer to allow threads to work properly.
